@@ -1,7 +1,7 @@
 import os
-from celery import celery
+from celery import Celery
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE","pricetracker.settings")
-app = celery("pricetracker")
-app.config_from_object('django.conf:settings', namespcae="CELERY")
+app = Celery("pricetracker")
+app.config_from_object('django.conf:settings', namespace="CELERY")
 app.autodiscover_tasks()

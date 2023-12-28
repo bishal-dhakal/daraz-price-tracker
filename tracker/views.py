@@ -5,6 +5,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from django.http import HttpResponse
+from tracker.scrape import scrape_data
+from django.http import JsonResponse
+import json
+from .models import Product, ProductDetail, PriceHistory
+from rest_framework import serializers
 
 # Create your views here.
 #generate token manually
@@ -43,3 +49,47 @@ class UserProfileView(APIView):
     def get(self,request,format=None):
         return Response({'msg':f" welcome {request.user}"},status=status.HTTP_200_OK)
     
+
+class ScrapeView(APIView):
+    def get(self,request,format=None):
+        """
+        logic to store price data in db using function in scrape.py
+        """
+        try:
+            urls = Product.objects.all()
+        except:
+            return "No Url Found"
+        
+        # TODO : store it in database 
+        for  product in urls:
+            url = product.url
+            id = product.id
+            title,price, description = scrape_data(url)
+            product_details = ProductDetail.objects.filter(product_id=id)
+            if product_details is None:
+                detail = ProductDetail(product_id=id,name = title, description= description)
+                detail.save()
+            detail2 = PriceHistory(product_id=id,last_price=price)
+            detail2.save()
+        return  HttpResponse(f'scraping Completed',status=status.HTTP_200_OK)
+    
+class UserView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self,request,format=None):
+        user = request.user
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        url = body['url']
+        desired_price= body['desired_price']
+        data = Product(user=user,url=url,desired_price=desired_price)
+        data.save()
+        return HttpResponse("url added")
+    
+    def get(self,request,format=None):
+        user = request.user
+        data = Product.objects.filter(user=user).values('url','desired_price')
+        data_list = list(data)
+        print(data)
+        return JsonResponse(data_list,safe=False)
+
