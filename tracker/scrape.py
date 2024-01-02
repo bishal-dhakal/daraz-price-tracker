@@ -3,7 +3,6 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from .models import ProductDetail,PriceHistory
 import time
-import sys
 
 
 def scrape_data(url):

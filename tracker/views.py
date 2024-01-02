@@ -11,6 +11,7 @@ from django.http import JsonResponse
 import json
 from .models import Product, ProductDetail, PriceHistory
 from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 #generate token manually
@@ -65,13 +66,27 @@ class ScrapeView(APIView):
             url = product.url
             id = product.id
         
-            title,price, description = scrape_data(url)
+            data = scrape_data(url)
+            title = data[0]
+            price = int(data[1])
+            description= data[2]
+
             product_details = ProductDetail.objects.filter(product_id=id)
-            if product_details is None:
+            if not product_details:
                 detail = ProductDetail(product_id=id,name = title, description= description)
                 detail.save()
-            detail2 = PriceHistory(product_id=id,last_price=price)
-            detail2.save()
+            print('details are upto date.')
+            
+            try:
+                price_db = PriceHistory.objects.filter(last_price=price).latest('date')
+                if price != price_db.last_price:
+                    detail2 = PriceHistory(product_id=id,last_price=price)
+                    detail2.save()
+                print('Price is upto date.')
+            except ObjectDoesNotExist:
+                detail2 = PriceHistory(product_id=id,last_price=price)
+                detail2.save()
+                
         return  HttpResponse(f'scraping Completed',status=status.HTTP_200_OK)
     
 class UserView(APIView):
