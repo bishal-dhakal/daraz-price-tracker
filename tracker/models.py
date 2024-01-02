@@ -24,5 +24,5 @@ class PriceHistory(models.Model):
     last_price = models.IntegerField(default=0,blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.product.name} - {self.last_price} on {self.date}"
+    # def __str__(self):
+    #     return f"{self.product.url} - {self.last_price} on {self.date}"

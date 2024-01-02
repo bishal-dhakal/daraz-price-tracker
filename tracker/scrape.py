@@ -1,7 +1,11 @@
+from django.http import HttpResponse
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from .models import ProductDetail
+from .models import ProductDetail,PriceHistory
 import time
+import sys
+
+
 def scrape_data(url):
     user_agent = "Mozilla/5.0"
     options = webdriver.EdgeOptions()

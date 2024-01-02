@@ -64,6 +64,7 @@ class ScrapeView(APIView):
         for  product in urls:
             url = product.url
             id = product.id
+        
             title,price, description = scrape_data(url)
             product_details = ProductDetail.objects.filter(product_id=id)
             if product_details is None:

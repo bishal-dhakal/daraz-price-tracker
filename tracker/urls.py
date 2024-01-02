@@ -5,7 +5,7 @@ from tracker.views import *
 urlpatterns = [
     path("login",LoginView.as_view(),name='login'),
     path("signin",RegistrationView.as_view(),name='signin'),
-    path("profile",UserProfileView.as_view(),name='profile'),
     path("scrape",ScrapeView.as_view(),name='scraper'),
+    path("profile",UserProfileView.as_view(),name='profile'),
     path("user",UserView.as_view(),name='user'),
 ]
