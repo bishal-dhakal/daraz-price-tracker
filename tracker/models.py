@@ -14,6 +14,7 @@ class ProductDetail(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=200, default=None)
     description= models.CharField(max_length=1000, default=None)
+    # slug = models.CharField(max_length=200, default=None, index=True)
 
     def __str__(self):
         return self.name

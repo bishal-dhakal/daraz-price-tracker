@@ -12,8 +12,15 @@ import json
 from .models import Product, ProductDetail, PriceHistory
 from rest_framework import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from tracker.tasks import add
+
+
 
 # Create your views here.
+
+result = add.delay(4,4)
+
+
 #generate token manually
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -45,12 +52,6 @@ class LoginView(APIView):
                 return Response({"errors":{'non_fieled_errors':['Email or password is not valid']}}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class UserProfileView(APIView):
-    permission_classes = [IsAuthenticated]
-    def get(self,request,format=None):
-        return Response({'msg':f" welcome {request.user}"},status=status.HTTP_200_OK)
-    
-
 class ScrapeView(APIView):
     def get(self,request,format=None):
         """
@@ -71,18 +72,31 @@ class ScrapeView(APIView):
             price = int(data[1])
             description= data[2]
 
+            products =Product.objects.filter(id=id).all()
+            for product in products:
+                desired_price = product.desired_price
+                print(desired_price)
+            
+            if desired_price is not None and  desired_price == price:
+                print('price dropped to your desired price')
+
+
             product_details = ProductDetail.objects.filter(product_id=id)
             if not product_details:
                 detail = ProductDetail(product_id=id,name = title, description= description)
                 detail.save()
-            print('details are upto date.')
+                print('new detail updated.')
+            else:
+                print('details are upto date.')
             
             try:
                 price_db = PriceHistory.objects.filter(last_price=price).latest('date')
                 if price != price_db.last_price:
                     detail2 = PriceHistory(product_id=id,last_price=price)
                     detail2.save()
-                print('Price is upto date.')
+                    print('New price updated.')
+                else:
+                    print('Price is upto date.')
             except ObjectDoesNotExist:
                 detail2 = PriceHistory(product_id=id,last_price=price)
                 detail2.save()
@@ -106,6 +120,10 @@ class UserView(APIView):
         user = request.user
         data = Product.objects.filter(user=user).values('url','desired_price')
         data_list = list(data)
-        print(data)
         return JsonResponse(data_list,safe=False)
 
+
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request,format=None):
+        return Response({'msg':f" welcome {request.user}"},status=status.HTTP_200_OK)

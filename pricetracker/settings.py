@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework_simplejwt',
-    'tracker'
+    'tracker',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -177,13 +178,17 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_TIMEZONE = 'Asia/Kathmandu'
 
 CELERY_BEAT_SCHEDULE = {
     'task-trackprice' :{
-        'task':'tracker.tasks.trackprice',
-        'schedule':crontab(hour=10,minute=0)
+        'task':'tracker.tasks.add',
+        'schedule':10.0,
+        'args':(4,4),
     }
 }
-
