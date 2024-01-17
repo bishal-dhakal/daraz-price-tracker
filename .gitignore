@@ -1,2 +1,4 @@
 /ptenv
 db.sqlite3
+.env
+cred.json

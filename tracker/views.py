@@ -6,20 +6,18 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
-from tracker.scrape import scrape_data
 from django.http import JsonResponse
 import json
-from .models import Product, ProductDetail, PriceHistory
-from rest_framework import serializers
-from django.core.exceptions import ObjectDoesNotExist
-from tracker.tasks import add
-
-
+from .models import Product, PriceHistory, ProductDetail
+from datetime import datetime,timedelta
+from .Utils.Email import Email
+from django.contrib.auth.models import User
+from datetime import datetime, date
 
 # Create your views here.
-
-result = add.delay(4,4)
-
+    
+end_date = datetime.now()
+start_date = end_date - timedelta(days= 365)
 
 #generate token manually
 def get_tokens_for_user(user):
@@ -52,57 +50,6 @@ class LoginView(APIView):
                 return Response({"errors":{'non_fieled_errors':['Email or password is not valid']}}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class ScrapeView(APIView):
-    def get(self,request,format=None):
-        """
-        logic to store price data in db using function in scrape.py
-        """
-        try:
-            urls = Product.objects.all()
-        except:
-            return "No Url Found"
-        
-        # TODO : store it in database 
-        for  product in urls:
-            url = product.url
-            id = product.id
-        
-            data = scrape_data(url)
-            title = data[0]
-            price = int(data[1])
-            description= data[2]
-
-            products =Product.objects.filter(id=id).all()
-            for product in products:
-                desired_price = product.desired_price
-                print(desired_price)
-            
-            if desired_price is not None and  desired_price == price:
-                print('price dropped to your desired price')
-
-
-            product_details = ProductDetail.objects.filter(product_id=id)
-            if not product_details:
-                detail = ProductDetail(product_id=id,name = title, description= description)
-                detail.save()
-                print('new detail updated.')
-            else:
-                print('details are upto date.')
-            
-            try:
-                price_db = PriceHistory.objects.filter(last_price=price).latest('date')
-                if price != price_db.last_price:
-                    detail2 = PriceHistory(product_id=id,last_price=price)
-                    detail2.save()
-                    print('New price updated.')
-                else:
-                    print('Price is upto date.')
-            except ObjectDoesNotExist:
-                detail2 = PriceHistory(product_id=id,last_price=price)
-                detail2.save()
-                
-        return  HttpResponse(f'scraping Completed',status=status.HTTP_200_OK)
-    
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
     
@@ -114,16 +61,27 @@ class UserView(APIView):
         desired_price= body['desired_price']
         data = Product(user=user,url=url,desired_price=desired_price)
         data.save()
+
+
         return HttpResponse("url added")
     
     def get(self,request,format=None):
         user = request.user
         data = Product.objects.filter(user=user).values('url','desired_price')
-        data_list = list(data)
+        data_list = list(data)                        
         return JsonResponse(data_list,safe=False)
-
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request,format=None):
         return Response({'msg':f" welcome {request.user}"},status=status.HTTP_200_OK)
+
+    
+class Ayearprice(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request,id,format=None):
+        data = PriceHistory.objects.filter(product_id=id).all()
+        print(data)
+        return HttpResponse(data,status=status.HTTP_200_OK)
+
