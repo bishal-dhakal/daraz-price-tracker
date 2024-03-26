@@ -81,10 +81,10 @@ WSGI_APPLICATION = "pricetracker.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'darazpricetracker',
-        'USER': 'postgres',
-        'PASSWORD': 'nepal',
-        'HOST': 'localhost',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '5432'
     }
 }
