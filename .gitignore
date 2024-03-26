@@ -1,4 +1,6 @@
-/ptenv
+/venv
 db.sqlite3
 .env
 cred.json
+/.vscode
+/.idea

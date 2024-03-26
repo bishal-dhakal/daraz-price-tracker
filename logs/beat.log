@@ -1,0 +1,48 @@
+[2024-03-26 06:16:53,897: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:17:00,027: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:18:00,001: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:19:00,047: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:20:00,057: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:20:19,195: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:21:00,046: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:22:00,050: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:22:51,195: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:23:00,011: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:24:50,285: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:24:50,324: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:25:00,003: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:26:00,060: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:27:00,083: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:28:00,245: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:29:00,133: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:30:00,146: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:31:00,159: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:32:00,055: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:33:00,002: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:34:00,046: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:35:00,062: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:36:00,050: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:38:39,667: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:38:39,761: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:39:00,010: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:40:00,057: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:44:18,619: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:44:18,845: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:45:00,276: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:46:00,390: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:47:00,135: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:48:00,642: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:50:44,247: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:50:44,517: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:52:14,645: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:52:14,843: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:53:00,024: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:55:51,912: INFO/MainProcess] beat: Starting...
+[2024-03-26 06:55:52,467: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:56:00,033: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:57:01,249: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:58:00,707: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 06:59:05,608: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 07:00:01,429: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 07:01:00,070: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)
+[2024-03-26 07:02:02,889: INFO/MainProcess] Scheduler: Sending due task task-trackprice (tracker.tasks.cel_scraper)

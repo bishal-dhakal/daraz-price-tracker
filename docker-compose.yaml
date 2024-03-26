@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+  # pricetracker:
+  #   build: .
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   volumes:
+  #     - .:/usr/app/app
+  #   ports: 
+  #     - '8000:8000'
+  #   env_file:
+  #     - ./.env
+
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: nepal
+      POSTGRES_USER: postgres
+      POSTGRES_DB: darazpricetracker
+    
+  # worker:
+  #   build: .
+  #   command: celery -A pricetracker worker --pool=solo --loglevel=info --logfile=logs/celery.log
+  #   volumes:
+  #     - .:/usr/src/app
+  #   environment:
+  #     - CELERY_BROKER_URL=redis://redis:6379/0
+  #     - CELERY_RESULT_BACKEND=redis://redis:6379/0
+  #   depends_on:
+  #     - redis
+  #     - pricetracker
+
+  # beat:
+  #   build: .
+  #   command: celery -A pricetracker beat --loglevel=info --logfile=logs/beat.log
+  #   volumes:
+  #     - .:/usr/src/app
+  #   environment:
+  #     - CELERY_BROKER_URL=redis://redis:6379/0
+  #     - CELERY_RESULT_BACKEND=redis://redis:6379/0
+  #   depends_on:
+  #     - pricetracker
+  #     - redis
+
+  # dashboard:
+  #   build: .
+  #   command: celery --broker=redis://redis:6379/0 flower --port=5555
+  #   ports:
+  #     - 5556:5555
+  #   environment:
+  #     - CELERY_BROKER_URL=redis://redis:6379/0
+  #     - CELERY_RESULT_BACKEND=redis://redis:6379/0
+  #   depends_on:
+  #     - pricetracker
+  #     - redis
+  #     - worker
+
+  # redis:
+  #   image: redis:7

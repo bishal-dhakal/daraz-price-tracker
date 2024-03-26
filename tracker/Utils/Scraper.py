@@ -1,6 +1,5 @@
 from rest_framework import status
 from django.http import HttpResponse
-from tracker.Utils.Email import Email
 from ..models import Product, ProductDetail, PriceHistory
 from django.core.exceptions import ObjectDoesNotExist
 import time
@@ -37,7 +36,7 @@ class Scrape:
                 print('details are upto date.')
             
             try:
-                price_db = PriceHistory.objects.filter(last_price=price).latest('date')
+                price_db = PriceHistory.objects.filter(last_price=price).latest('created_date')
                 if price != price_db.last_price:
                     detail2 = PriceHistory(product_id=id,last_price=price)
                     detail2.save()
